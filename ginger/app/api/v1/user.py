@@ -10,20 +10,6 @@ __author__ = 'MiracleWong'
 api = Redprint('user')
 
 
-# class QiYue(object):
-#     name = 'qiyue'
-#     age = 18
-#
-#     def __init__(self):
-#         self.gender = 'male'
-#
-#     def keys(self):
-#         return ['name', 'age', 'gender']
-#
-#     def __getitem__(self, item):
-#         return getattr(self, item)
-
-
 @api.route('/<int:uid>', methods=["GET"])
 @auth.login_required
 def get_user(uid):
