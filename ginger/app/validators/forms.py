@@ -6,15 +6,16 @@ created by MiracleWong on 2019/2/7
 __author__ = 'MiracleWong'
 
 
-from wtforms import Form, StringField, IntegerField
+from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired, length, Email, Regexp
 
 from app.libs.enums import ClientTypeEnum
 from app.modules.user import User
+from app.validators.base import BaseForm as Form
 
 
 class ClientForm(Form):
-    account = StringField(validators=[DataRequired(), length(
+    account = StringField(validators=[DataRequired(message='不允许为空'), length(
         min=5, max=20
     )])
     secret = StringField()
@@ -26,9 +27,6 @@ class ClientForm(Form):
         except ValueError as e:
             raise e
         self.type.data = client
-
-    # def __register_user_by_email(form):
-    #     User.register_by_email(form.account.data,form.secret.data)
 
 
 class UserEmailForm(ClientForm):
