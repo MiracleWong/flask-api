@@ -1,8 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 created by MiracleWong on 2019/2/7
-'''
-from flask import request
+"""
 
 from app.libs.enums import ClientTypeEnum
 from app.libs.error_code import Success

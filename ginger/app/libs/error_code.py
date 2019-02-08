@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 created by MiracleWong on 2019/2/7
-'''
+"""
+
 from app.libs.error import APIException
 
 __author__ = 'MiracleWong'
@@ -29,3 +30,15 @@ class ParameterException(APIException):
     code = 400
     error_code = 1000
     msg = "Invalid Parameter"
+
+
+class NotFound(APIException):
+    code = 404
+    error_code = 1001
+    msg = "The resource are not found "
+
+
+class AuthFailed(APIException):
+    code = 401
+    error_code = 1005
+    msg = "Authorization Failed"

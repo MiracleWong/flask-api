@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 created by MiracleWong on 2019/2/7
-'''
+"""
 
 __author__ = 'MiracleWong'
 
@@ -24,6 +24,8 @@ class ClientForm(Form):
     def validate_type(self, value):
         try:
             client = ClientTypeEnum(value.data)
+            print("client")
+            print(client)
         except ValueError as e:
             raise e
         self.type.data = client

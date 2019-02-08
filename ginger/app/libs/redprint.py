@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
-'''
-created by miraclewong on 2019/2/6
-'''
+"""
+created by MiracleWong on 2019/2/6
+"""
 
-__author__ = 'miraclewong'
+__author__ = 'MiracleWong'
 
 
 class Redprint:

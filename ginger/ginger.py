@@ -19,10 +19,12 @@ def framework_error(e):
         return APIException(msg, code, error_code)
     else:
         if not app.config['DEBUG']:
+            print("ServerError")
             return ServerError()
         else:
+            print("e")
             raise e
-        return ServerError()
+        # return ServerError()
 
 
 if __name__ == '__main__':

@@ -3,8 +3,9 @@
 created by MiracleWong on 2019/2/7
 '''
 from sqlalchemy import Integer, Column, String, SmallInteger
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
+from app.libs.error_code import NotFound, AuthFailed
 from app.modules.base import Base, db
 
 __author__ = 'MiracleWong'
@@ -34,3 +35,20 @@ class User(Base):
             user.password = secret
             user.email = account
             db.session.add(user)
+
+    @staticmethod
+    def verify(email, password):
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            raise NotFound(msg="user not found")
+        if not user.check_password(password):
+            print("password")
+            raise AuthFailed()
+        return {'uid': user.id}
+
+    def check_password(self, raw):
+        if not self._password:
+            return False
+        print("_password", self._password)
+        print("raw", raw)
+        return check_password_hash(self._password, raw)
