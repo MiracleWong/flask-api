@@ -13,6 +13,12 @@ class Success(APIException):
     msg = "ok"
 
 
+class ServerError(APIException):
+    code = 500
+    error_code = 999
+    msg = "Sorry, we made a mistake"
+
+
 class ClientTypeError(APIException):
     code = 400
     error_code = 1006
