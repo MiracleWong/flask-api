@@ -1,7 +1,17 @@
 # -*- coding:utf-8 -*-
-from flask import Flask
+from flask import Flask as _Flask
+from flask.json import JSONEncoder as _JSONEncoder
 
 __author__ = 'MiracleWong'
+
+
+class JSONEncoder(_JSONEncoder):
+    def default(self, o):
+        return dict(o)
+
+
+class Flask(_Flask):
+    json_encoder = JSONEncoder
 
 
 def register_blueprints(app):

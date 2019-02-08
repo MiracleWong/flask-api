@@ -10,15 +10,26 @@ __author__ = 'MiracleWong'
 api = Redprint('user')
 
 
+# class QiYue(object):
+#     name = 'qiyue'
+#     age = 18
+#
+#     def __init__(self):
+#         self.gender = 'male'
+#
+#     def keys(self):
+#         return ['name', 'age', 'gender']
+#
+#     def __getitem__(self, item):
+#         return getattr(self, item)
+
+
 @api.route('/<int:uid>', methods=["GET"])
 @auth.login_required
 def get_user(uid):
     user = User.query.get_or_404(uid)
-    r = {
-        'nickname': user.nickname,
-        'email': user.email
-    }
-    return jsonify(r)
+
+    return jsonify(user)
 
 
 @api.route('', methods=["POST"])

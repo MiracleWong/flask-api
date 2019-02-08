@@ -18,6 +18,12 @@ class User(Base):
     auth = Column(SmallInteger, default=1)
     _password = Column('password', String(100))
 
+    def keys(self):
+        return ['id', 'nickname', 'email', 'auth']
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
     @property
     def password(self):
         return self._password
