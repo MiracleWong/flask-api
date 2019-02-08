@@ -38,9 +38,7 @@ class User(Base):
 
     @staticmethod
     def verify(email, password):
-        user = User.query.filter_by(email=email).first()
-        if not user:
-            raise NotFound(msg="user not found")
+        user = User.query.filter_by(email=email).first_or_404()
         if not user.check_password(password):
             print("password")
             raise AuthFailed()
