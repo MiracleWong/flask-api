@@ -21,23 +21,13 @@ def get_token():
     promise = {
         ClientTypeEnum.USER_MAIL: User.verify,
     }
-    print(form.type.data)
-    print(ClientTypeEnum(form.type.data))
-    print("form.account.data")
-    print(form.account.data)
-    print("form.secret.data")
-    print(form.secret.data)
     identity = promise[ClientTypeEnum(form.type.data)](
         form.account.data,
         form.secret.data
     )
     expiration = current_app.config['TOKEN_EXPIRATION']
-    print("expiration")
-    print(expiration)
     token = generate_auth_token(identity['uid'], form.type.data,
-                                None, expiration)
-    print("token")
-    print(token)
+                                identity['scope'], expiration)
     t = {
         'token': token.decode("ascii")
     }
@@ -51,4 +41,5 @@ def generate_auth_token(uid, ac_type, scope=None, expiration=7200):
     return s.dumps({
         'uid': uid,
         'type': ac_type.value,
+        'scope': scope
     })
