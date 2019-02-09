@@ -7,40 +7,41 @@ __author__ = 'MiracleWong'
 
 
 class Scope:
+    allow_api = []
+    allow_module = []
 
-    def add(self, other):
+    def __add__(self, other):
         self.allow_api = self.allow_api + other.allow_api
+        self.allow_api = list(set(self.allow_api))
+
+        self.allow_module = self.allow_module + other.allow_module
+        self.allow_module = list(set(self.allow_module))
+        # 运算符重载
         return self
 
 
-class AdminScope(Scope):
-    allow_api = ['v1.super_get_user']
-
-    def __init__(self):
-        self.add(UserScope())
-        print(self.allow_api)
-
-
 class UserScope(Scope):
-    allow_api = ['v1.A']
+    # allow_api = ['v1.user+get_user', 'v1.user+delete_user']
+    allow_module = []
 
 
-class SuperScope(Scope):
-    allow_api = ['v1.C']
+class AdminScope(Scope):
+    # allow_api = ['v1.user+super_get_user', 'v1.user+super_delete_user']
+    allow_module = ['v1.user']
 
     def __init__(self):
-        self.add(UserScope()).add(AdminScope())
+        # self + UserScope()
         print(self.allow_api)
-
-
-SuperScope()
-AdminScope()
 
 
 def is_in_scope(scope, endpoint):
     # 如何通过类的名字拿到类的对象，这就是类的反射
     scope = globals()[scope]()
+    splits = endpoint.split('+')
+    red_name = splits[0]
     if endpoint in scope.allow_api:
+        return True
+    if red_name in scope.allow_module:
         return True
     else:
         return False
