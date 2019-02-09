@@ -43,6 +43,7 @@ def verify_auth_token(token):
     uid = data['uid']
     ac_type = data['type']
     scope = data['scope']
+    print(scope)
     # request 视图函数
     allow = is_in_scope(scope, request.endpoint)
     if not allow:
